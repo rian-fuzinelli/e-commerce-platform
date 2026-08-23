@@ -1,3 +1,4 @@
+<!--
 # Plataforma de E-commerce — Módulo 1: Fundamentos do Back-end
 
 Catálogo de produtos em ASP.NET Core + EF Core + PostgreSQL, rodando em Docker.
