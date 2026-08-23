@@ -1,0 +1,61 @@
+@host = http://localhost:5080
+@productId = 00000000-0000-0000-0000-000000000000
+
+### Health check
+GET {{host}}/health
+
+### Listar categorias
+GET {{host}}/api/v1/categories
+
+### Criar categoria
+POST {{host}}/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Periféricos",
+  "slug": "perifericos"
+}
+
+### Listar produtos (paginado)
+GET {{host}}/api/v1/products?page=1&pageSize=10&onlyActive=true
+
+### Buscar produtos por nome ou SKU
+GET {{host}}/api/v1/products?search=teclado
+
+### Criar produto (troque o categoryId por um id real)
+POST {{host}}/api/v1/products
+Content-Type: application/json
+
+{
+  "sku": "SKU-HP-010",
+  "name": "Headset Gamer 7.1",
+  "description": "Som surround virtual e microfone removível.",
+  "price": 459.90,
+  "currency": "BRL",
+  "stockQuantity": 15,
+  "categoryId": "00000000-0000-0000-0000-000000000000"
+}
+
+### Erro de validação proposital (preço zero, SKU curto)
+POST {{host}}/api/v1/products
+Content-Type: application/json
+
+{
+  "sku": "AB",
+  "name": "X",
+  "price": 0,
+  "currency": "BRLL",
+  "stockQuantity": -5,
+  "categoryId": "00000000-0000-0000-0000-000000000000"
+}
+
+### Atualizar estoque
+PATCH {{host}}/api/v1/products/{{productId}}/stock
+Content-Type: application/json
+
+{
+  "quantity": 99
+}
+
+### Desativar produto (soft delete)
+DELETE {{host}}/api/v1/products/{{productId}}
